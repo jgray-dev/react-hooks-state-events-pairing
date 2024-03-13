@@ -1,10 +1,9 @@
-function VideoFrame() {
+function VideoFrame({ video }) {
   return (
     <iframe
       width="919"
       height="525"
-      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-      frameBorder="0"
+      src={video.embedUrl}
       allowFullScreen
       title="Thinking in React"
     />

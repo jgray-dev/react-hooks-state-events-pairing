@@ -4,8 +4,10 @@ function Comments({ comments, handleShowComments, commentVis }) {
     displayComments = comments.map((comment) => {
       return (
         <div key={comment.id}>
-          <h4>{comment.user}</h4>
+          <h3>{comment.user}</h3>
           <p>{comment.comment}</p>
+          <br></br>
+          <br></br>
         </div>
       );
     });
@@ -17,6 +19,7 @@ function Comments({ comments, handleShowComments, commentVis }) {
       <button onClick={() => handleShowComments(!commentVis)}>
         {commentVis ? "Hide Comments" : "Show Comments"}
       </button>
+      <h2>{commentVis ? `${comments.length} Comments` : ""}</h2>
       {displayComments}
     </>
   );

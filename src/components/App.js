@@ -3,31 +3,34 @@ import video from "../data/video.js";
 import VideoFrame from "./VideoFrame";
 import LikeCount from "./LikeCount";
 import Comments from "./Comments";
+import Header from "./Header";
 
 function App() {
   //console.log("Here's your data:", video);
   const [rating, changeRating] = useState("");
   const [commentVis, showComments] = useState(true);
+  const [currentLikes, updateLikes] = useState(video.upvotes);
+  const [currentDislikes, updateDislikes] = useState(video.downvotes);
 
   function handleSubmitRating(newRating) {
     if (rating !== newRating) {
       changeRating(newRating);
       if (newRating === "Liked") {
-        video.upvotes++;
+        updateLikes(currentLikes + 1);
         if (rating === "Disliked") {
-          video.downvotes--;
+          updateDislikes(currentDislikes - 1);
         }
       } else if (newRating === "Disliked") {
-        video.downvotes++;
+        updateDislikes(currentDislikes + 1);
         if (rating === "Liked") {
-          video.upvotes--;
+          updateLikes(currentLikes - 1);
         }
       }
     } else {
       if (rating === "Liked") {
-        video.upvotes--;
+        updateLikes(currentLikes - 1);
       } else if (rating === "Disliked") {
-        video.downvotes--;
+        updateDislikes(currentDislikes - 1);
       }
       changeRating("");
     }
@@ -39,10 +42,11 @@ function App() {
 
   return (
     <div className="App">
-      <VideoFrame />
+      <VideoFrame video={video} />
+      <Header video={video} />
       <LikeCount
-        likes={video.upvotes}
-        dislikes={video.downvotes}
+        likes={currentLikes}
+        dislikes={currentDislikes}
         handleSubmitRating={handleSubmitRating}
         currentRating={rating}
       />
